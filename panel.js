@@ -148,12 +148,30 @@ async function init() {
     $("status").textContent = `Updated ${n} cookie${n === 1 ? "" : "s"}.`;
   });
 
+  $("grant").addEventListener("click", async () => {
+    if (await browser.permissions.request(ALL_SITES)) {
+      browser.runtime.sendMessage("sweep");
+      await load();
+    }
+  });
+  await load();
+}
+
+// Firefox MV3 doesn't grant host permissions at install, and without them
+// cookies and tab URLs are invisible to the extension.
+const ALL_SITES = { origins: ["<all_urls>"] };
+
+async function load() {
+  $("access").hidden = await browser.permissions.contains(ALL_SITES);
+
+  siteHost = null;
   try {
     const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
     const url = new URL(tab.url);
     if (url.protocol === "http:" || url.protocol === "https:") siteHost = url.hostname.toLowerCase();
   } catch {}
 
+  cookies = new Map();
   for (const c of await getAllCookies()) {
     cookies.set(cookieKey(c), { name: c.name, domain: normDomain(c.domain) });
   }

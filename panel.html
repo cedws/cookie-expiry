@@ -21,7 +21,8 @@
     button { cursor:pointer; }
     button:hover { border-color:var(--accent); }
     #status { color:var(--ok); font-size:12px; min-height:1em; }
-    #list { max-height:300px; overflow-y:auto; margin:0 -14px; }
+    #list { max-height:300px; overflow-y:auto; margin:10px -14px 0; }
+    input[type=search]:focus { outline-offset:0; }
     .item { display:flex; align-items:center; gap:10px; padding:6px 14px; cursor:pointer; }
     .item:hover { background:var(--hl); }
     .item.ex { background:var(--hl); }
@@ -38,6 +39,11 @@
   </style>
 </head>
 <body>
+  <section id="access" hidden>
+    <strong>Site access needed</strong>
+    <div class="row">Firefox hasn't given this extension access to your sites, so it can't see or expire cookies.</div>
+    <button id="grant">Grant access to all sites</button>
+  </section>
   <section>
     <div class="row between">
       <strong>Global cookie expiry</strong>
