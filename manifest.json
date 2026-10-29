@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Cookie Expiry",
+  "version": "1.0.0",
+  "description": "Cap how long cookies live with a global expiry, with a searchable exclusion whitelist.",
+  "icons": { "48": "icon.svg", "96": "icon.svg" },
+  "permissions": ["cookies", "storage", "alarms"],
+  "host_permissions": ["<all_urls>"],
+  "background": { "scripts": ["shared.js", "background.js"] },
+  "action": {
+    "default_title": "Cookie Expiry",
+    "default_icon": "icon.svg",
+    "default_popup": "panel.html"
+  },
+  "options_ui": { "page": "panel.html", "open_in_tab": true },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "cookie-expiry@local",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": { "required": ["none"] }
+    }
+  }
+}

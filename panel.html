@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Cookie Expiry</title>
+  <style>
+    :root { --bg:#fff; --fg:#1c1b22; --muted:#6b6a75; --line:#e2e1e8; --accent:#0a6cff; --hl:#e8f1ff; --ok:#1a7f37; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg:#1c1b22; --fg:#fbfbfe; --muted:#a3a2ae; --line:#3a3944; --accent:#6aa7ff; --hl:#27324a; --ok:#5fd07a; }
+    }
+    * { box-sizing: border-box; }
+    body { margin:0; width:420px; max-width:100%; background:var(--bg); color:var(--fg); font:13px system-ui, sans-serif; }
+    section { padding:12px 14px; border-bottom:1px solid var(--line); }
+    h2 { margin:0 0 8px; font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); }
+    .row { display:flex; align-items:center; gap:8px; margin:6px 0; }
+    .row.between { justify-content:space-between; }
+    input, select, button { font:inherit; color:inherit; background:var(--bg); border:1px solid var(--line); border-radius:6px; padding:5px 8px; }
+    input[type=number] { width:70px; }
+    input[type=search] { width:100%; }
+    button { cursor:pointer; }
+    button:hover { border-color:var(--accent); }
+    #status { color:var(--ok); font-size:12px; min-height:1em; }
+    #list { max-height:300px; overflow-y:auto; margin:0 -14px; }
+    .item { display:flex; align-items:center; gap:10px; padding:6px 14px; cursor:pointer; }
+    .item:hover { background:var(--hl); }
+    .item.ex { background:var(--hl); }
+    .dot { width:16px; height:16px; border:1.5px solid var(--muted); border-radius:50%; flex:none; display:grid; place-items:center; font-size:11px; line-height:1; }
+    .ex .dot { background:var(--accent); border-color:var(--accent); color:#fff; }
+    .ex .dot::after { content:"✓"; }
+    .txt { flex:1; min-width:0; }
+    .name { font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .dom { color:var(--muted); font-size:12px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .site { font-size:11px; padding:2px 6px; flex:none; }
+    .sechead { padding:8px 14px 4px; font-size:11px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; position:sticky; top:0; background:var(--bg); }
+    .hint { color:var(--muted); padding:10px 14px; }
+    label { display:flex; align-items:center; gap:6px; }
+  </style>
+</head>
+<body>
+  <section>
+    <div class="row between">
+      <strong>Global cookie expiry</strong>
+      <label><input type="checkbox" id="enabled"> Enabled</label>
+    </div>
+    <div class="row">
+      Expire cookies after
+      <input type="number" id="amount" min="1">
+      <select id="unit">
+        <option value="minutes">minutes</option>
+        <option value="hours">hours</option>
+        <option value="days">days</option>
+      </select>
+    </div>
+    <div class="row">
+      <button id="apply">Apply now</button>
+      <span id="status"></span>
+    </div>
+  </section>
+  <section>
+    <h2>Cookies and exclusions</h2>
+    <input type="search" id="q" placeholder="Search stored cookies by name or site…" autofocus>
+    <div id="list"></div>
+  </section>
+  <script src="shared.js"></script>
+  <script src="panel.js"></script>
+</body>
+</html>
